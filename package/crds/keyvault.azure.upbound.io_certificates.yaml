@@ -70,8 +70,7 @@ spec:
                     items:
                       properties:
                         contentsSecretRef:
-                          description: The base64-encoded certificate contents. Changing
-                            this forces a new resource to be created.
+                          description: The base64-encoded certificate contents.
                           properties:
                             key:
                               description: The key to select.
@@ -89,7 +88,6 @@ spec:
                           type: object
                         passwordSecretRef:
                           description: The password associated with the certificate.
-                            Changing this forces a new resource to be created.
                           properties:
                             key:
                               description: The key to select.

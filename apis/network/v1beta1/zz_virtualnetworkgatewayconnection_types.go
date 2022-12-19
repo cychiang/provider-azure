@@ -103,13 +103,11 @@ type VirtualNetworkGatewayConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	AuthorizationKeySecretRef *v1.SecretKeySelector `json:"authorizationKeySecretRef,omitempty" tf:"-"`
 
-	// Connection mode to use. Possible
-	// values are Default, InitiatorOnly and ResponderOnly. Defaults to Default.
-	// Changing this value will force a resource to be created.
+	// Connection mode to use. Possible values are Default, InitiatorOnly and ResponderOnly. Defaults to Default. Changing this value will force a resource to be created.
 	// +kubebuilder:validation:Optional
 	ConnectionMode *string `json:"connectionMode,omitempty" tf:"connection_mode,omitempty"`
 
-	// The IKE protocol version to use. Possible
+	// The IKE protocol version to use. Possible values are IKEv1 and IKEv2.
 	// values are IKEv1 and IKEv2. Defaults to IKEv2.
 	// Changing this value will force a resource to be created.
 	// -> Note: Only valid for IPSec connections on virtual network gateways with SKU VpnGw1, VpnGw2, VpnGw3, VpnGw1AZ, VpnGw2AZ or VpnGw3AZ.

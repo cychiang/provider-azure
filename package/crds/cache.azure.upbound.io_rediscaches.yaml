@@ -67,7 +67,7 @@ spec:
                   capacity:
                     description: The size of the Redis cache to deploy. Valid values
                       for a SKU family of C (Basic/Standard) are 0, 1, 2, 3, 4, 5,
-                      6, and for P (Premium) family are 1, 2, 3, 4.
+                      6, and for P (Premium) family are 1, 2, 3, 4, 5.
                     type: number
                   enableNonSslPort:
                     description: Enable the non-SSL port (6379) - disabled by default.
@@ -76,11 +76,32 @@ spec:
                     description: The SKU family/pricing group to use. Valid values
                       are C (for Basic/Standard SKU family) and P (for Premium)
                     type: string
+                  identity:
+                    description: An identity block as defined below.
+                    items:
+                      properties:
+                        identityIds:
+                          description: A list of User Assigned Managed Identity IDs
+                            to be assigned to this Redis Cluster.
+                          items:
+                            type: string
+                          type: array
+                        type:
+                          description: Specifies the type of Managed Service Identity
+                            that should be configured on this Redis Cluster. Possible
+                            values are SystemAssigned, UserAssigned, SystemAssigned,
+                            UserAssigned (to enable both).
+                          type: string
+                      required:
+                      - type
+                      type: object
+                    type: array
                   location:
                     description: The location of the resource group.
                     type: string
                   minimumTlsVersion:
-                    description: The minimum TLS version.  Defaults to 1.0.
+                    description: The minimum TLS version.  Possible values are 1.0,
+                      1.1 and 1.2. Defaults to 1.0.
                     type: string
                   patchSchedule:
                     description: A list of patch_schedule blocks as defined below.
@@ -601,6 +622,18 @@ spec:
                   id:
                     description: The Route ID.
                     type: string
+                  identity:
+                    description: An identity block as defined below.
+                    items:
+                      properties:
+                        principalId:
+                          description: The Route ID.
+                          type: string
+                        tenantId:
+                          description: The Route ID.
+                          type: string
+                      type: object
+                    type: array
                   port:
                     description: The non-SSL Port of the Redis Instance
                     type: number

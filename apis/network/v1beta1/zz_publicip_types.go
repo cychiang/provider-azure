@@ -31,6 +31,14 @@ type PublicIPParameters struct {
 	// +kubebuilder:validation:Required
 	AllocationMethod *string `json:"allocationMethod" tf:"allocation_method,omitempty"`
 
+	// The DDoS protection mode of the public IP. Possible values are Disabled, Enabled, and VirtualNetworkInherited. Defaults to VirtualNetworkInherited.
+	// +kubebuilder:validation:Optional
+	DDOSProtectionMode *string `json:"ddosProtectionMode,omitempty" tf:"ddos_protection_mode,omitempty"`
+
+	// The ID of DDoS protection plan associated with the public IP.
+	// +kubebuilder:validation:Optional
+	DDOSProtectionPlanID *string `json:"ddosProtectionPlanId,omitempty" tf:"ddos_protection_plan_id,omitempty"`
+
 	// Label for the Domain Name. Will be used to make up the FQDN.  If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system.
 	// +kubebuilder:validation:Optional
 	DomainNameLabel *string `json:"domainNameLabel,omitempty" tf:"domain_name_label,omitempty"`

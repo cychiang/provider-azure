@@ -156,11 +156,13 @@ spec:
                           type: number
                         protocol:
                           description: The protocol used for this Gateway Lodbalancer
-                            Tunnel Interface. Possible values are Native and VXLAN.
+                            Tunnel Interface. Possible values are None, Native and
+                            VXLAN.
                           type: string
                         type:
                           description: The traffic type of this Gateway Lodbalancer
-                            Tunnel Interface. Possible values are Internal and External.
+                            Tunnel Interface. Possible values are None, Internal and
+                            External.
                           type: string
                       required:
                       - identifier
@@ -356,6 +358,12 @@ spec:
                   id:
                     description: The ID of the Backend Address Pool.
                     type: string
+                  inboundNatRules:
+                    description: An array of the Load Balancing Inbound NAT Rules
+                      associated with this Backend Address Pool.
+                    items:
+                      type: string
+                    type: array
                   loadBalancingRules:
                     description: The Load Balancing Rules associated with this Backend
                       Address Pool.

@@ -268,10 +268,16 @@ spec:
                     description: An identity block as defined below.
                     items:
                       properties:
+                        identityIds:
+                          description: Specifies a list of User Assigned Managed Identity
+                            IDs to be assigned to this Cosmos Account.
+                          items:
+                            type: string
+                          type: array
                         type:
-                          description: Specifies the type of Managed Service Identity
-                            that should be configured on this Cosmos Account. The
-                            only possible value is SystemAssigned.
+                          description: The Type of Managed Identity assigned to this
+                            Cosmos account. Possible values are SystemAssigned, UserAssigned
+                            and SystemAssigned, UserAssigned.
                           type: string
                       required:
                       - type
@@ -294,8 +300,9 @@ spec:
                     type: string
                   kind:
                     description: Specifies the Kind of CosmosDB to create - possible
-                      values are GlobalDocumentDB and MongoDB. Defaults to GlobalDocumentDB.
-                      Changing this forces a new resource to be created.
+                      values are GlobalDocumentDB, MongoDB and Parse. Defaults to
+                      GlobalDocumentDB. Changing this forces a new resource to be
+                      created.
                     type: string
                   localAuthenticationDisabled:
                     description: Disable local authentication and ensure only MSI

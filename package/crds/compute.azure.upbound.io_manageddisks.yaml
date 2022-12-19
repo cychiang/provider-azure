@@ -80,22 +80,24 @@ spec:
                   diskIopsReadOnly:
                     description: The number of IOPS allowed across all VMs mounting
                       the shared disk as read-only; only settable for UltraSSD disks
-                      with shared disk enabled. One operation can transfer between
-                      4k and 256k bytes.
+                      and PremiumV2 disks with shared disk enabled. One operation
+                      can transfer between 4k and 256k bytes.
                     type: number
                   diskIopsReadWrite:
                     description: The number of IOPS allowed for this disk; only settable
-                      for UltraSSD disks. One operation can transfer between 4k and
-                      256k bytes.
+                      for UltraSSD disks and PremiumV2 disks. One operation can transfer
+                      between 4k and 256k bytes.
                     type: number
                   diskMbpsReadOnly:
                     description: The bandwidth allowed across all VMs mounting the
-                      shared disk as read-only; only settable for UltraSSD disks with
-                      shared disk enabled. MBps means millions of bytes per second.
+                      shared disk as read-only; only settable for UltraSSD disks and
+                      PremiumV2 disks with shared disk enabled. MBps means millions
+                      of bytes per second.
                     type: number
                   diskMbpsReadWrite:
                     description: The bandwidth allowed for this disk; only settable
-                      for UltraSSD disks. MBps means millions of bytes per second.
+                      for UltraSSD disks and PremiumV2 disks. MBps means millions
+                      of bytes per second.
                     type: number
                   diskSizeGb:
                     description: Specifies the size of the managed disk to create
@@ -122,7 +124,8 @@ spec:
                                   id on the azurerm_key_vault_secret resource.
                                 type: string
                               sourceVaultId:
-                                description: The ID of the source Key Vault.
+                                description: The ID of the source Key Vault. This
+                                  can be found as id on the azurerm_key_vault resource.
                                 type: string
                             required:
                             - secretUrl
@@ -130,8 +133,6 @@ spec:
                             type: object
                           type: array
                         enabled:
-                          description: Is Encryption enabled on this Managed Disk?
-                            Changing this forces a new resource to be created.
                           type: boolean
                         keyEncryptionKey:
                           description: A key_encryption_key block as defined below.
@@ -143,15 +144,14 @@ spec:
                                   on the azurerm_key_vault_key resource.
                                 type: string
                               sourceVaultId:
-                                description: The ID of the source Key Vault.
+                                description: The ID of the source Key Vault. This
+                                  can be found as id on the azurerm_key_vault resource.
                                 type: string
                             required:
                             - keyUrl
                             - sourceVaultId
                             type: object
                           type: array
-                      required:
-                      - enabled
                       type: object
                     type: array
                   galleryImageReferenceId:
@@ -293,9 +293,9 @@ spec:
                       Changing this forces a new resource to be created.
                     type: string
                   sourceResourceId:
-                    description: The ID of an existing Managed Disk to copy create_option
-                      is Copy or the recovery point to restore when create_option
-                      is Restore
+                    description: The ID of an existing Managed Disk or Snapshot to
+                      copy when create_option is Copy or the recovery point to restore
+                      when create_option is Restore
                     type: string
                   sourceResourceIdRef:
                     description: Reference to a ManagedDisk in compute to populate
@@ -384,7 +384,7 @@ spec:
                   storageAccountType:
                     description: The type of storage to use for the managed disk.
                       Possible values are Standard_LRS, StandardSSD_ZRS, Premium_LRS,
-                      Premium_ZRS, StandardSSD_LRS or UltraSSD_LRS.
+                      PremiumV2_LRS, Premium_ZRS, StandardSSD_LRS or UltraSSD_LRS.
                     type: string
                   tags:
                     additionalProperties:

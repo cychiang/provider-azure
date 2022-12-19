@@ -33,6 +33,10 @@ type DiskEncryptionSetParameters struct {
 	// +kubebuilder:validation:Optional
 	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
 
+	// Multi-tenant application client id to access key vault in a different tenant.
+	// +kubebuilder:validation:Optional
+	FederatedClientID *string `json:"federatedClientId,omitempty" tf:"federated_client_id,omitempty"`
+
 	// An identity block as defined below.
 	// +kubebuilder:validation:Required
 	Identity []IdentityParameters `json:"identity" tf:"identity,omitempty"`
@@ -84,7 +88,11 @@ type IdentityObservation struct {
 
 type IdentityParameters struct {
 
-	// The type of Managed Service Identity that is configured on this Disk Encryption Set. The only possible value is SystemAssigned.
+	// A list of User Assigned Managed Identity IDs to be assigned to this Disk Encryption Set.
+	// +kubebuilder:validation:Optional
+	IdentityIds []*string `json:"identityIds,omitempty" tf:"identity_ids,omitempty"`
+
+	// The type of Managed Service Identity that is configured on this Disk Encryption Set.  Possible values are SystemAssigned, UserAssigned, SystemAssigned, UserAssigned (to enable both).
 	// +kubebuilder:validation:Required
 	Type *string `json:"type" tf:"type,omitempty"`
 }

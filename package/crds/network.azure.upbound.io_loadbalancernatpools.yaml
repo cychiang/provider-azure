@@ -173,7 +173,7 @@ spec:
                     type: object
                   protocol:
                     description: The transport protocol for the external endpoint.
-                      Possible values are Udp or Tcp.
+                      Possible values are All, Tcp and Udp.
                     type: string
                   resourceGroupName:
                     description: The name of the resource group in which to create

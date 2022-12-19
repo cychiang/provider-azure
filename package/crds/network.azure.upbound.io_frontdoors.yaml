@@ -36,7 +36,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: FrontDoor is the Schema for the FrontDoors API. Manages an Azure
-          Front Door instance.
+          Front Door (classic) instance.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -153,7 +153,7 @@ spec:
                           type: string
                         protocol:
                           description: Protocol scheme to use for the Health Probe.
-                            Defaults to Http.
+                            Possible values are Http and Https. Defaults to Http.
                           type: string
                       required:
                       - name
@@ -323,7 +323,8 @@ spec:
                       properties:
                         acceptedProtocols:
                           description: Protocol schemes to match for the Backend Routing
-                            Rule. Defaults to Http.
+                            Rule. Possible values are Http and Https. Defaults to
+                            Http.
                           items:
                             type: string
                           type: array

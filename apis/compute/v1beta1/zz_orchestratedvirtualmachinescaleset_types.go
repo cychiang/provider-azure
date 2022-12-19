@@ -13,6 +13,20 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ExtensionProtectedSettingsFromKeyVaultObservation struct {
+}
+
+type ExtensionProtectedSettingsFromKeyVaultParameters struct {
+
+	// The URL to the Key Vault Secret which stores the protected settings.
+	// +kubebuilder:validation:Required
+	SecretURL *string `json:"secretUrl" tf:"secret_url,omitempty"`
+
+	// The ID of the source Key Vault.
+	// +kubebuilder:validation:Required
+	SourceVaultID *string `json:"sourceVaultId" tf:"source_vault_id,omitempty"`
+}
+
 type IPConfigurationPublicIPAddressObservation struct {
 }
 
@@ -37,6 +51,14 @@ type IPConfigurationPublicIPAddressParameters struct {
 	// The ID of the Public IP Address Prefix from where Public IP Addresses should be allocated. Changing this forces a new resource to be created.
 	// +kubebuilder:validation:Optional
 	PublicIPPrefixID *string `json:"publicIpPrefixId,omitempty" tf:"public_ip_prefix_id,omitempty"`
+
+	// The name of the SKU to be used by this Orcestrated Virtual Machine Scale Set. Valid values include: any of the General purpose, Compute optimized, Memory optimized, Storage optimized, GPU optimized, FPGA optimized, High performance, or Previous generation virtual machine SKUs.
+	// +kubebuilder:validation:Optional
+	SkuName *string `json:"skuName,omitempty" tf:"sku_name,omitempty"`
+
+	// Specifies the version of the image used to create the virtual machines.
+	// +kubebuilder:validation:Optional
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type LinuxConfigurationAdminSSHKeyObservation struct {
@@ -77,6 +99,10 @@ type LinuxConfigurationParameters struct {
 	// When an admin_password is specified disable_password_authentication must be set to false. Defaults to true.
 	// +kubebuilder:validation:Optional
 	DisablePasswordAuthentication *bool `json:"disablePasswordAuthentication,omitempty" tf:"disable_password_authentication,omitempty"`
+
+	// Specifies the mode of VM Guest Patching for the virtual machines that are associated to the Orchestrated Virtual Machine Scale Set. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault.
+	// +kubebuilder:validation:Optional
+	PatchAssessmentMode *string `json:"patchAssessmentMode,omitempty" tf:"patch_assessment_mode,omitempty"`
 
 	// Specifies the mode of in-guest patching of this Windows Virtual Machine. Possible values are Manual, AutomaticByOS and AutomaticByPlatform. Defaults to AutomaticByOS. For more information on patch modes please see the product documentation.
 	// +kubebuilder:validation:Optional
@@ -163,6 +189,16 @@ type NetworkInterfaceIPConfigurationParameters struct {
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
+type OrchestratedVirtualMachineScaleSetAdditionalCapabilitiesObservation struct {
+}
+
+type OrchestratedVirtualMachineScaleSetAdditionalCapabilitiesParameters struct {
+
+	// Should the capacity to enable Data Disks of the UltraSSD_LRS storage account type be supported on this Orchestrated Virtual Machine Scale Set? Defaults to false. Changing this forces a new resource to be created.
+	// +kubebuilder:validation:Optional
+	UltraSsdEnabled *bool `json:"ultraSsdEnabled,omitempty" tf:"ultra_ssd_enabled,omitempty"`
+}
+
 type OrchestratedVirtualMachineScaleSetAutomaticInstanceRepairObservation struct {
 }
 
@@ -212,7 +248,7 @@ type OrchestratedVirtualMachineScaleSetDataDiskParameters struct {
 	// +kubebuilder:validation:Required
 	Lun *float64 `json:"lun" tf:"lun,omitempty"`
 
-	// The Type of Storage Account which should back this Data Disk. Possible values include Standard_LRS, StandardSSD_LRS, Premium_LRS and UltraSSD_LRS.
+	// The Type of Storage Account which should back this Data Disk. Possible values include Standard_LRS, StandardSSD_LRS, StandardSSD_ZRS, Premium_LRS, PremiumV2_LRS, Premium_ZRS and UltraSSD_LRS.
 	// +kubebuilder:validation:Required
 	StorageAccountType *string `json:"storageAccountType" tf:"storage_account_type,omitempty"`
 
@@ -239,6 +275,10 @@ type OrchestratedVirtualMachineScaleSetExtensionParameters struct {
 	// +kubebuilder:validation:Optional
 	ExtensionsToProvisionAfterVMCreation []*string `json:"extensionsToProvisionAfterVmCreation,omitempty" tf:"extensions_to_provision_after_vm_creation,omitempty"`
 
+	// Should failures from the extension be suppressed? Possible values are true or false. Defaults to false.
+	// +kubebuilder:validation:Optional
+	FailureSuppressionEnabled *bool `json:"failureSuppressionEnabled,omitempty" tf:"failure_suppression_enabled,omitempty"`
+
 	// A value which, when different to the previous value can be used to force-run the Extension even if the Extension Configuration hasn't changed.
 	// +kubebuilder:validation:Optional
 	ForceExtensionExecutionOnChange *string `json:"forceExtensionExecutionOnChange,omitempty" tf:"force_extension_execution_on_change,omitempty"`
@@ -246,6 +286,10 @@ type OrchestratedVirtualMachineScaleSetExtensionParameters struct {
 	// The name for the Virtual Machine Scale Set Extension.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
+
+	// A protected_settings_from_key_vault block as defined below.
+	// +kubebuilder:validation:Optional
+	ProtectedSettingsFromKeyVault []ExtensionProtectedSettingsFromKeyVaultParameters `json:"protectedSettingsFromKeyVault,omitempty" tf:"protected_settings_from_key_vault,omitempty"`
 
 	// A JSON String which specifies Sensitive Settings (such as Passwords) for the Extension.
 	// +kubebuilder:validation:Optional
@@ -332,6 +376,10 @@ type OrchestratedVirtualMachineScaleSetOsDiskDiffDiskSettingsParameters struct {
 	// Specifies the Ephemeral Disk Settings for the OS Disk. At this time the only possible value is Local. Changing this forces a new resource to be created.
 	// +kubebuilder:validation:Required
 	Option *string `json:"option" tf:"option,omitempty"`
+
+	// Specifies where to store the Ephemeral Disk. Possible values are CacheDisk and ResourceDisk. Defaults to CacheDisk. Changing this forces a new resource to be created.
+	// +kubebuilder:validation:Optional
+	Placement *string `json:"placement,omitempty" tf:"placement,omitempty"`
 }
 
 type OrchestratedVirtualMachineScaleSetOsDiskObservation struct {
@@ -355,7 +403,7 @@ type OrchestratedVirtualMachineScaleSetOsDiskParameters struct {
 	// +kubebuilder:validation:Optional
 	DiskSizeGb *float64 `json:"diskSizeGb,omitempty" tf:"disk_size_gb,omitempty"`
 
-	// The Type of Storage Account which should back this the Internal OS Disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS.
+	// The Type of Storage Account which should back this the Internal OS Disk. Possible values include Standard_LRS, StandardSSD_LRS, StandardSSD_ZRS, Premium_LRS and Premium_ZRS.
 	// +kubebuilder:validation:Required
 	StorageAccountType *string `json:"storageAccountType" tf:"storage_account_type,omitempty"`
 
@@ -365,12 +413,21 @@ type OrchestratedVirtualMachineScaleSetOsDiskParameters struct {
 
 type OrchestratedVirtualMachineScaleSetParameters struct {
 
+	// An additional_capabilities block as defined below.
+	// +kubebuilder:validation:Optional
+	AdditionalCapabilities []OrchestratedVirtualMachineScaleSetAdditionalCapabilitiesParameters `json:"additionalCapabilities,omitempty" tf:"additional_capabilities,omitempty"`
+
+	// An automatic_instance_repair block as defined below.
 	// +kubebuilder:validation:Optional
 	AutomaticInstanceRepair []OrchestratedVirtualMachineScaleSetAutomaticInstanceRepairParameters `json:"automaticInstanceRepair,omitempty" tf:"automatic_instance_repair,omitempty"`
 
 	// A boot_diagnostics block as defined below.
 	// +kubebuilder:validation:Optional
 	BootDiagnostics []OrchestratedVirtualMachineScaleSetBootDiagnosticsParameters `json:"bootDiagnostics,omitempty" tf:"boot_diagnostics,omitempty"`
+
+	// Specifies the ID of the Capacity Reservation Group which the Virtual Machine Scale Set should be allocated to. Changing this forces a new resource to be created.
+	// +kubebuilder:validation:Optional
+	CapacityReservationGroupID *string `json:"capacityReservationGroupId,omitempty" tf:"capacity_reservation_group_id,omitempty"`
 
 	// One or more data_disk blocks as defined below.
 	// +kubebuilder:validation:Optional
@@ -387,11 +444,15 @@ type OrchestratedVirtualMachineScaleSetParameters struct {
 	// +kubebuilder:validation:Optional
 	Extension []OrchestratedVirtualMachineScaleSetExtensionParameters `json:"extension,omitempty" tf:"extension,omitempty"`
 
+	// Should extension operations be allowed on the Virtual Machine Scale Set? Possible values are true or false. Defaults to true. Changing this forces a new Orchestrated Virtual Machine Scale Set to be created.
+	// +kubebuilder:validation:Optional
+	ExtensionOperationsEnabled *bool `json:"extensionOperationsEnabled,omitempty" tf:"extension_operations_enabled,omitempty"`
+
 	// Specifies the time alloted for all extensions to start. The time duration should be between 15 minutes and 120 minutes (inclusive) and should be specified in ISO 8601 format. The default value is 90 minutes (PT1H30M).
 	// +kubebuilder:validation:Optional
 	ExtensionsTimeBudget *string `json:"extensionsTimeBudget,omitempty" tf:"extensions_time_budget,omitempty"`
 
-	// A identity block as defined below.
+	// An identity block as defined below.
 	// +kubebuilder:validation:Optional
 	Identity []OrchestratedVirtualMachineScaleSetIdentityParameters `json:"identity,omitempty" tf:"identity,omitempty"`
 
@@ -452,11 +513,15 @@ type OrchestratedVirtualMachineScaleSetParameters struct {
 	// +kubebuilder:validation:Optional
 	ResourceGroupNameSelector *v1.Selector `json:"resourceGroupNameSelector,omitempty" tf:"-"`
 
+	// Should this Virtual Machine Scale Set be limited to a Single Placement Group, which means the number of instances will be capped at 100 Virtual Machines. Possible values are true or false.
+	// +kubebuilder:validation:Optional
+	SinglePlacementGroup *bool `json:"singlePlacementGroup,omitempty" tf:"single_placement_group,omitempty"`
+
 	// The name of the SKU to be used by this Orcestrated Virtual Machine Scale Set. Valid values include: any of the General purpose, Compute optimized, Memory optimized, Storage optimized, GPU optimized, FPGA optimized, High performance, or Previous generation virtual machine SKUs.
 	// +kubebuilder:validation:Optional
 	SkuName *string `json:"skuName,omitempty" tf:"sku_name,omitempty"`
 
-	// The ID of an Image which each Virtual Machine in this Scale Set should be based on.
+	// The ID of an Image which each Virtual Machine in this Scale Set should be based on. Possible Image ID types include Image IDs, Shared Image IDs, Shared Image Version IDs, Community Gallery Image IDs, Community Gallery Image Version IDs, Shared Gallery Image IDs and Shared Gallery Image Version IDs.
 	// +kubebuilder:validation:Optional
 	SourceImageID *string `json:"sourceImageId,omitempty" tf:"source_image_id,omitempty"`
 
@@ -471,6 +536,10 @@ type OrchestratedVirtualMachineScaleSetParameters struct {
 	// A termination_notification block as defined below.
 	// +kubebuilder:validation:Optional
 	TerminationNotification []OrchestratedVirtualMachineScaleSetTerminationNotificationParameters `json:"terminationNotification,omitempty" tf:"termination_notification,omitempty"`
+
+	// The Base64-Encoded User Data which should be used for this Virtual Machine Scale Set.
+	// +kubebuilder:validation:Optional
+	UserDataBase64SecretRef *v1.SecretKeySelector `json:"userDataBase64SecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	ZoneBalance *bool `json:"zoneBalance,omitempty" tf:"zone_balance,omitempty"`
@@ -590,6 +659,10 @@ type WindowsConfigurationParameters struct {
 	// Should the VM be patched without requiring a reboot? Possible values are true or false. Defaults to false. For more information about hot patching please see the product documentation.
 	// +kubebuilder:validation:Optional
 	HotpatchingEnabled *bool `json:"hotpatchingEnabled,omitempty" tf:"hotpatching_enabled,omitempty"`
+
+	// Specifies the mode of VM Guest Patching for the virtual machines that are associated to the Orchestrated Virtual Machine Scale Set. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault.
+	// +kubebuilder:validation:Optional
+	PatchAssessmentMode *string `json:"patchAssessmentMode,omitempty" tf:"patch_assessment_mode,omitempty"`
 
 	// Specifies the mode of in-guest patching of this Windows Virtual Machine. Possible values are Manual, AutomaticByOS and AutomaticByPlatform. Defaults to AutomaticByOS. For more information on patch modes please see the product documentation.
 	// +kubebuilder:validation:Optional

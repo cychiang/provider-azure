@@ -68,6 +68,15 @@ spec:
                     description: Defines the allocation method for this IP address.
                       Possible values are Static or Dynamic.
                     type: string
+                  ddosProtectionMode:
+                    description: The DDoS protection mode of the public IP. Possible
+                      values are Disabled, Enabled, and VirtualNetworkInherited. Defaults
+                      to VirtualNetworkInherited.
+                    type: string
+                  ddosProtectionPlanId:
+                    description: The ID of DDoS protection plan associated with the
+                      public IP.
+                    type: string
                   domainNameLabel:
                     description: Label for the Domain Name. Will be used to make up
                       the FQDN.  If a domain name label is specified, an A DNS record

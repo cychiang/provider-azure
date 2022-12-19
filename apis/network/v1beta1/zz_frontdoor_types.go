@@ -75,7 +75,7 @@ type BackendPoolHealthProbeParameters struct {
 	// +kubebuilder:validation:Optional
 	ProbeMethod *string `json:"probeMethod,omitempty" tf:"probe_method,omitempty"`
 
-	// Protocol scheme to use for the Health Probe. Defaults to Http.
+	// Protocol scheme to use for the Health Probe. Possible values are Http and Https. Defaults to Http.
 	// +kubebuilder:validation:Optional
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 }
@@ -334,7 +334,7 @@ type RoutingRuleObservation struct {
 
 type RoutingRuleParameters struct {
 
-	// Protocol schemes to match for the Backend Routing Rule. Defaults to Http.
+	// Protocol schemes to match for the Backend Routing Rule. Possible values are Http and Https. Defaults to Http.
 	// +kubebuilder:validation:Required
 	AcceptedProtocols []*string `json:"acceptedProtocols" tf:"accepted_protocols,omitempty"`
 
@@ -407,7 +407,7 @@ type FrontDoorStatus struct {
 
 // +kubebuilder:object:root=true
 
-// FrontDoor is the Schema for the FrontDoors API. Manages an Azure Front Door instance.
+// FrontDoor is the Schema for the FrontDoors API. Manages an Azure Front Door (classic) instance.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

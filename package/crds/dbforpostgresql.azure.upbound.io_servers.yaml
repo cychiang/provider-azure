@@ -227,7 +227,8 @@ spec:
                     type: object
                   restorePointInTime:
                     description: When create_mode is PointInTimeRestore the point
-                      in time to restore from creation_source_server_id.
+                      in time to restore from creation_source_server_id. It should
+                      be provided in RFC3339 format, e.g. 2013-11-08T22:00:40Z.
                     type: string
                   skuName:
                     description: Specifies the SKU Name for this PostgreSQL Server.
@@ -242,7 +243,7 @@ spec:
                   sslMinimalTlsVersionEnforced:
                     description: The minimum TLS version to support on the sever.
                       Possible values are TLSEnforcementDisabled, TLS1_0, TLS1_1,
-                      and TLS1_2. Defaults to TLSEnforcementDisabled.
+                      and TLS1_2. Defaults to TLS1_2.
                     type: string
                   storageMb:
                     description: Max storage allowed for a server. Possible values
@@ -312,7 +313,7 @@ spec:
                     type: array
                   version:
                     description: Specifies the version of PostgreSQL to use. Valid
-                      values are 9.5, 9.6, 10, 10.0, and 11. Changing this forces
+                      values are 9.5, 9.6, 10, 10.0, 10.2 and 11. Changing this forces
                       a new resource to be created.
                     type: string
                 required:

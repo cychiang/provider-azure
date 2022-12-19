@@ -62,7 +62,7 @@ type LoadBalancerNatPoolParameters struct {
 	// +kubebuilder:validation:Optional
 	LoadbalancerIDSelector *v1.Selector `json:"loadbalancerIdSelector,omitempty" tf:"-"`
 
-	// The transport protocol for the external endpoint. Possible values are Udp or Tcp.
+	// The transport protocol for the external endpoint. Possible values are All, Tcp and Udp.
 	// +kubebuilder:validation:Required
 	Protocol *string `json:"protocol" tf:"protocol,omitempty"`
 

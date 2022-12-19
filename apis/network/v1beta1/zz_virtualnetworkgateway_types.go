@@ -290,8 +290,7 @@ type VirtualNetworkGatewayParameters struct {
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// The type of the Virtual Network Gateway. Valid options are
-	// Vpn or ExpressRoute. Changing the type forces a new resource to be created.
+	// The type of the Virtual Network Gateway. Valid options are Vpn or ExpressRoute. Changing the type forces a new resource to be created.
 	// +kubebuilder:validation:Required
 	Type *string `json:"type" tf:"type,omitempty"`
 
@@ -299,8 +298,7 @@ type VirtualNetworkGatewayParameters struct {
 	// +kubebuilder:validation:Optional
 	VPNClientConfiguration []VPNClientConfigurationParameters `json:"vpnClientConfiguration,omitempty" tf:"vpn_client_configuration,omitempty"`
 
-	// The routing type of the Virtual Network Gateway. Valid
-	// options are RouteBased or PolicyBased. Defaults to RouteBased.
+	// The routing type of the Virtual Network Gateway. Valid options are RouteBased or PolicyBased. Defaults to RouteBased.
 	// +kubebuilder:validation:Optional
 	VPNType *string `json:"vpnType,omitempty" tf:"vpn_type,omitempty"`
 }

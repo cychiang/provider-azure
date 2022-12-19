@@ -84,8 +84,7 @@ type ServicesAccountParameters struct {
 	// +kubebuilder:validation:Required
 	StorageAccount []StorageAccountParameters `json:"storageAccount" tf:"storage_account,omitempty"`
 
-	// Specifies the storage authentication type.
-	// Possible value is  ManagedIdentity or System.
+	// Specifies the storage authentication type. Possible value is  ManagedIdentity or System.
 	// +kubebuilder:validation:Optional
 	StorageAuthenticationType *string `json:"storageAuthenticationType,omitempty" tf:"storage_authentication_type,omitempty"`
 

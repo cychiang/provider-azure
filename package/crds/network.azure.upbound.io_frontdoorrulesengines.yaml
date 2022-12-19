@@ -36,7 +36,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: FrontdoorRulesEngine is the Schema for the FrontdoorRulesEngines
-          API. Manages an Azure Front Door Rules Engine configuration and rules.
+          API. Manages an Azure Front Door (classic) Rules Engine configuration and
+          rules.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

@@ -90,7 +90,12 @@ spec:
                                       description: The age in days after last access
                                         time to tier blobs to archive storage. Supports
                                         blob currently at Hot or Cool tier. Must be
-                                        between 0 and 99999`.
+                                        between 0 and99999`.
+                                      type: number
+                                    tierToArchiveAfterDaysSinceLastTierChangeGreaterThan:
+                                      description: The age in days after last tier
+                                        change to the blobs to skip to be archved.
+                                        Must be between 0 and 99999.
                                       type: number
                                     tierToArchiveAfterDaysSinceModificationGreaterThan:
                                       description: The age in days after last modification
@@ -131,6 +136,11 @@ spec:
                                         to delete the blob snapshot. Must be between
                                         0 and 99999.
                                       type: number
+                                    tierToArchiveAfterDaysSinceLastTierChangeGreaterThan:
+                                      description: The age in days after last tier
+                                        change to the blobs to skip to be archved.
+                                        Must be between 0 and 99999.
+                                      type: number
                                   type: object
                                 type: array
                               version:
@@ -151,6 +161,11 @@ spec:
                                       description: The age in days after creation
                                         to delete the blob version. Must be between
                                         0 and 99999.
+                                      type: number
+                                    tierToArchiveAfterDaysSinceLastTierChangeGreaterThan:
+                                      description: The age in days after last tier
+                                        change to the blobs to skip to be archved.
+                                        Must be between 0 and 99999.
                                       type: number
                                   type: object
                                 type: array
@@ -176,10 +191,9 @@ spec:
                                 items:
                                   properties:
                                     name:
-                                      description: A rule name can contain any combination
-                                        of alpha numeric characters. Rule name is
-                                        case-sensitive. It must be unique within a
-                                        policy.
+                                      description: The name of the rule. Rule name
+                                        is case-sensitive. It must be unique within
+                                        a policy.
                                       type: string
                                     operation:
                                       description: The comparison operator which is
@@ -206,8 +220,7 @@ spec:
                             type: object
                           type: array
                         name:
-                          description: A rule name can contain any combination of
-                            alpha numeric characters. Rule name is case-sensitive.
+                          description: The name of the rule. Rule name is case-sensitive.
                             It must be unique within a policy.
                           type: string
                       required:

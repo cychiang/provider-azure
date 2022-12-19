@@ -96,7 +96,7 @@ spec:
                       properties:
                         identityIds:
                           description: Specifies a list of User Assigned Managed Identity
-                            IDs to be assigned to this API Management Service.
+                            IDs to be assigned to this ServiceBus namespace.
                           items:
                             type: string
                           type: array
@@ -118,6 +118,15 @@ spec:
                     description: Specifies the supported Azure location where the
                       resource exists. Changing this forces a new resource to be created.
                     type: string
+                  minimumTlsVersion:
+                    description: 'The minimum supported TLS version for this Service
+                      Bus Namespace. Valid values are: 1.0, 1.1 and 1.2. The current
+                      default minimum TLS version is 1.2.'
+                    type: string
+                  publicNetworkAccessEnabled:
+                    description: Is public network access enabled for the Service
+                      Bus Namespace? Defaults to true.
+                    type: boolean
                   resourceGroupName:
                     description: The name of the resource group in which to create
                       the namespace.

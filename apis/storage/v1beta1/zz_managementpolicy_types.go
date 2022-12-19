@@ -44,9 +44,13 @@ type BaseBlobParameters struct {
 	// +kubebuilder:validation:Optional
 	DeleteAfterDaysSinceModificationGreaterThan *float64 `json:"deleteAfterDaysSinceModificationGreaterThan,omitempty" tf:"delete_after_days_since_modification_greater_than,omitempty"`
 
-	// The age in days after last access time to tier blobs to archive storage. Supports blob currently at Hot or Cool tier. Must be between 0 and 99999`.
+	// The age in days after last access time to tier blobs to archive storage. Supports blob currently at Hot or Cool tier. Must be between 0 and99999`.
 	// +kubebuilder:validation:Optional
 	TierToArchiveAfterDaysSinceLastAccessTimeGreaterThan *float64 `json:"tierToArchiveAfterDaysSinceLastAccessTimeGreaterThan,omitempty" tf:"tier_to_archive_after_days_since_last_access_time_greater_than,omitempty"`
+
+	// The age in days after last tier change to the blobs to skip to be archved. Must be between 0 and 99999.
+	// +kubebuilder:validation:Optional
+	TierToArchiveAfterDaysSinceLastTierChangeGreaterThan *float64 `json:"tierToArchiveAfterDaysSinceLastTierChangeGreaterThan,omitempty" tf:"tier_to_archive_after_days_since_last_tier_change_greater_than,omitempty"`
 
 	// The age in days after last modification to tier blobs to archive storage. Supports blob currently at Hot or Cool tier. Must be between 0 and 99999.
 	// +kubebuilder:validation:Optional
@@ -111,7 +115,7 @@ type MatchBlobIndexTagObservation struct {
 
 type MatchBlobIndexTagParameters struct {
 
-	// A rule name can contain any combination of alpha numeric characters. Rule name is case-sensitive. It must be unique within a policy.
+	// The name of the rule. Rule name is case-sensitive. It must be unique within a policy.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -141,7 +145,7 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Filters []FiltersParameters `json:"filters,omitempty" tf:"filters,omitempty"`
 
-	// A rule name can contain any combination of alpha numeric characters. Rule name is case-sensitive. It must be unique within a policy.
+	// The name of the rule. Rule name is case-sensitive. It must be unique within a policy.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 }
@@ -162,6 +166,10 @@ type SnapshotParameters struct {
 	// The age in days after creation to delete the blob snapshot. Must be between 0 and 99999.
 	// +kubebuilder:validation:Optional
 	DeleteAfterDaysSinceCreationGreaterThan *float64 `json:"deleteAfterDaysSinceCreationGreaterThan,omitempty" tf:"delete_after_days_since_creation_greater_than,omitempty"`
+
+	// The age in days after last tier change to the blobs to skip to be archved. Must be between 0 and 99999.
+	// +kubebuilder:validation:Optional
+	TierToArchiveAfterDaysSinceLastTierChangeGreaterThan *float64 `json:"tierToArchiveAfterDaysSinceLastTierChangeGreaterThan,omitempty" tf:"tier_to_archive_after_days_since_last_tier_change_greater_than,omitempty"`
 }
 
 type VersionObservation struct {
@@ -180,6 +188,10 @@ type VersionParameters struct {
 	// The age in days after creation to delete the blob version. Must be between 0 and 99999.
 	// +kubebuilder:validation:Optional
 	DeleteAfterDaysSinceCreation *float64 `json:"deleteAfterDaysSinceCreation,omitempty" tf:"delete_after_days_since_creation,omitempty"`
+
+	// The age in days after last tier change to the blobs to skip to be archved. Must be between 0 and 99999.
+	// +kubebuilder:validation:Optional
+	TierToArchiveAfterDaysSinceLastTierChangeGreaterThan *float64 `json:"tierToArchiveAfterDaysSinceLastTierChangeGreaterThan,omitempty" tf:"tier_to_archive_after_days_since_last_tier_change_greater_than,omitempty"`
 }
 
 // ManagementPolicySpec defines the desired state of ManagementPolicy
